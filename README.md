@@ -2,6 +2,19 @@
 
 Le back-end sera accessible à travers d'un API : https://cooking.com/api/
 
+Général
+-------
+
+POST : /api/register - Créer un compte 
+
+Paramètres requises : {email, password, password_confirmation, firstname, lastname}
+
+POST : /api/login - se connecter
+
+Paramètres requises : {email, password}
+
+GET : /api/logout - se déconnecter
+
 Recipe 
 ------
 
