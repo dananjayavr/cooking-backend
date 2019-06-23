@@ -4,8 +4,9 @@
 namespace App\Controller;
 
 
-use App\Repository\CategoryRepository;
+
 use App\Repository\RecipeRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -34,7 +35,7 @@ class RecipesController extends AbstractController
     }
 
     /**
-     * @Route("/api/recipes",name="recipes.index")
+     * @Route("/api/recipes",name="recipes.index",methods={"GET"})
      */
     public function index(Request $request, RecipeRepository $recipeRepository) : Response
     {
@@ -61,6 +62,17 @@ class RecipesController extends AbstractController
         $response->headers->set('Content-Type','application/json');
 
         return $response;
+    }
+
+    /**
+     * @Route("/api/recipes",name="recipes.add",methods={"POST"})
+     * @IsGranted("ROLE_USER")
+     */
+    public function add()
+    {
+        return $this->json([
+           'result' => true
+        ],200);
     }
 
 }

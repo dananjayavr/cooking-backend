@@ -29,7 +29,7 @@ class UsersController extends AbstractController
             'circular_reference_handler' => function($obj) {
                 return $obj->getId();
             },
-            'ignored_attributes' => ['recipes']
+            'ignored_attributes' => ['recipes','password','roles','isBlocked']
         ]);
     }
 
@@ -38,7 +38,7 @@ class UsersController extends AbstractController
      */
     public function index(Request $request, UserRepository $userRepository) : Response
     {
-        $response = new Response();
+       $response = new Response();
 
         $categories = $userRepository->findAll();
 
@@ -53,14 +53,20 @@ class UsersController extends AbstractController
      */
     public function detail(Request $request, UserRepository $userRepository, int $id) : Response
     {
-        $response = new Response();
+        /*$response = new Response();
 
         $category = $userRepository->find($id);
 
         $response->setContent($this->createJSON($category));
         $response->headers->set('Content-Type','application/json');
 
-        return $response;
+        return $response;*/
+
+        return $this->json([
+            'user' => $this->getUser()
+        ],200,[],[
+            'groups' => ['api']
+        ]);
     }
 
 }

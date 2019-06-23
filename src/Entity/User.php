@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -16,42 +17,50 @@ class User implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups("api")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     *
      */
     private $email;
 
     /**
      * @ORM\Column(type="json")
+     *
      */
     private $roles = [];
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     *
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Groups("api")
      */
     private $gravatar;
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Groups("api")
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Groups("api")
      */
     private $lastname;
 
     /**
      * @ORM\Column(type="date")
+     * @Groups("api")
      */
     private $dateCreated;
 
@@ -62,6 +71,7 @@ class User implements UserInterface
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Recipe", mappedBy="user")
+     * @Groups("api")
      */
     private $recipes;
 
