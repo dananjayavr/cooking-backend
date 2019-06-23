@@ -2,7 +2,7 @@
 
 Le back-end sera accessible à travers d'un API : https://cooking.com/api/
 
-Recipe - Principales Routes
+Recipe 
 ------
 
 GET : /api/recipes - récupérer des recettes
@@ -15,7 +15,7 @@ DELETE : /api/recipes/{id} - supprimer une recette avec une ID
 
 PUT : /api/recipes/{id} - mettre à jour la recette
 
-User - Principales Routes
+User 
 ---
 
 GET : /api/users - récupérer l'ensemble des utilisateurs
@@ -28,7 +28,7 @@ DELETE : /api/users/{id} - supprimer un utilisateur
 
 PUT : /api/users/{id} - mettre à jour un utilisateur
 
-Category - Principales Routes
+Category 
 ---
 
 GET : /api/categories - récupérer l'ensemble des catégories
