@@ -24,7 +24,7 @@ POST : /api/recipes - création/ajout d'une recette
 
 GET : /api/recipes/{id} - retrouver une recette avec une ID
 
-DELETE : /api/recipes/{id} - supprimer une recette avec une ID
+DELETE : /api/recipes/{id}/delete - supprimer une recette avec une ID
 
 PUT : /api/recipes/{id} - mettre à jour la recette
 

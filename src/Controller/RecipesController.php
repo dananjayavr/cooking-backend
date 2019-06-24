@@ -10,13 +10,12 @@ use App\Entity\Recipe;
 use App\Entity\User;
 use App\Repository\RecipeRepository;
 use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
+use phpDocumentor\Reflection\Types\This;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
@@ -37,7 +36,7 @@ class RecipesController extends AbstractController
             'circular_reference_handler' => function($obj) {
                 return $obj->getId();
             },
-            'ignored_attributes' => ['user','category']
+            'ignored_attributes' => ['user','category','recipes'] // removed user
         ]);
     }
 
@@ -48,12 +47,18 @@ class RecipesController extends AbstractController
     {
         $response = new Response();
 
-        $categories = $recipeRepository->findAll();
+        $recipes = $recipeRepository->findAll();
 
-        $response->setContent($this->createJSON($categories));
-        $response->headers->set('Content-Type','application/json');
+        /*$response->setContent($this->createJSON($categories));
+        $response->headers->set('Content-Type','application/json');*/
 
-        return $response;
+        //return $response;
+
+        return $this->json([
+            'user' => $recipes
+        ],200,[],[
+            'groups' => ['api']
+        ]);
     }
 
     /**
@@ -63,9 +68,9 @@ class RecipesController extends AbstractController
     {
         $response = new Response();
 
-        $category = $recipeRepository->find($id);
+        $recipe = $recipeRepository->find($id);
 
-        $response->setContent($this->createJSON($category));
+        $response->setContent($this->createJSON($recipe));
         $response->headers->set('Content-Type','application/json');
 
         return $response;
@@ -75,16 +80,19 @@ class RecipesController extends AbstractController
      * @Route("/api/recipes",name="recipes.add",methods={"POST"})
      * @IsGranted("ROLE_USER")
      */
-    public function add(ObjectManager $manager, Request $request, Security $security, UserInterface $user) : Response
+    public function add(ObjectManager $manager, Request $request, Security $security) : Response
     {
         $recipe = new Recipe();
         $category = new Category();
+        $response = new Response();
 
         $currentUser = $security->getUser();
 
 
         // TODO: refactor this bit using a for-loop and an array
         $userId = $currentUser->getId();
+        $user = $manager->find(User::class,$userId);
+        //dd($user);
 
         $categoryName = $request->get('categoryName');
         $title = $request->get('title');
@@ -124,7 +132,8 @@ class RecipesController extends AbstractController
             $recipe->setDifficulty($difficulty);
             $recipe->setIntro($intro);
             //TODO: correct this
-            $recipe->setUser($userId);
+            //dd($this->createJSON($user));
+            $recipe->setUser($user);
             $recipe->setPrice($price);
 
             try
@@ -134,9 +143,13 @@ class RecipesController extends AbstractController
 
                 $manager->flush();
 
-                return $this->json([
+                /*return $this->json([
                     'recipe' => $recipe
-                ],200);
+                ],200);*/
+                $response->setContent($this->createJSON($recipe));
+                $response->headers->set('Content-Type','application/json');
+
+                return $response;
             } /*catch (UniqueConstraintViolationException $exception)
             {
                 $errors[] = "The email provided already has an account.";
@@ -152,6 +165,30 @@ class RecipesController extends AbstractController
         return $this->json([
             'errors' => $errors
         ],400);
+    }
+
+    /**
+     * @Route("/api/recipes/{id}/delete",name="recipes.delete",methods={"DELETE"})
+     * @IsGranted("ROLE_USER")
+     */
+    public function delete(Request $request, int $id, Security $security) : Response
+    {
+        $recipe = $this->getDoctrine()->getRepository(Recipe::class)->find($id);
+        $entityManger = $this->getDoctrine()->getManager();
+
+        if ($recipe->getUser() === $security->getUser()) {
+            $entityManger->remove($recipe);
+            $entityManger->flush();
+
+            return $this->json([
+                'message' => 'Recipe Deleted'
+            ]);
+            
+        } else {
+            return $this->json([
+                'error' => 'Access Denied'
+            ]);
+        }
     }
 
 }

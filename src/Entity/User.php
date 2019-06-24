@@ -17,7 +17,7 @@ class User implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @Groups("api")
+     * @Groups({"api","default"})
      */
     private $id;
 
@@ -70,7 +70,8 @@ class User implements UserInterface
     private $isBlocked;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Recipe", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="App\Entity\Recipe",mappedBy="user",fetch="EAGER",indexBy="user")
+     * @ORM\JoinColumn(name="recipe",referencedColumnName="user")
      * @Groups("api")
      */
     private $recipes;
@@ -231,6 +232,7 @@ class User implements UserInterface
         if (!$this->recipes->contains($recipe)) {
             $this->recipes[] = $recipe;
             $recipe->setUser($this);
+            return $this;
         }
 
         return $this;

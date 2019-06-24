@@ -63,7 +63,7 @@ class UsersController extends AbstractController
         return $response;*/
 
         return $this->json([
-            'user' => $this->getUser()
+            'user' => $userRepository->find($id)
         ],200,[],[
             'groups' => ['api']
         ]);
