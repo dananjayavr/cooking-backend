@@ -7,7 +7,6 @@ namespace App\Controller;
 use App\Entity\Category;
 use App\Entity\Recipe;
 use App\Entity\User;
-use App\Repository\CategoryRepository;
 use App\Repository\RecipeRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -79,7 +78,7 @@ class RecipesController extends AbstractController
      * @Route("/api/recipes",name="recipes.add",methods={"POST"})
      * @IsGranted("ROLE_USER")
      */
-    public function add(ObjectManager $manager, Request $request, Security $security, CategoryRepository $categoryRepository) : Response
+    public function add(ObjectManager $manager, Request $request, Security $security) : Response
     {
         $recipe = new Recipe();
         $category = $this->getDoctrine()->getRepository(Category::class);
@@ -117,12 +116,12 @@ class RecipesController extends AbstractController
         }
 
 
+
         if(!$errors)
         {
 
             $recipe->setDateCreated($dateCreated);
-            //TODO: Correct this issue
-            $recipe->setCategory($this->getDoctrine()->getRepository(Category::class)->findOneBy(['name' => $categoryName]));
+            $recipe->setCategory($category->findOneBy(['name' => $categoryName]));
             $recipe->setColor($color);
             $recipe->setCookingTime($cookingTime);
             $recipe->setTitle($title);
@@ -135,10 +134,11 @@ class RecipesController extends AbstractController
             $recipe->setUser($user);
             $recipe->setPrice($price);
 
+//    dump($recipe); die();
             try
             {
                 $manager->persist($recipe);
-                $manager->persist($category);
+//                $manager->persist($category);
 
                 $manager->flush();
 
