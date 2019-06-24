@@ -4,13 +4,12 @@
 namespace App\Controller;
 
 
-
 use App\Entity\Category;
 use App\Entity\Recipe;
 use App\Entity\User;
+use App\Repository\CategoryRepository;
 use App\Repository\RecipeRepository;
 use Doctrine\Common\Persistence\ObjectManager;
-use phpDocumentor\Reflection\Types\This;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -80,10 +79,10 @@ class RecipesController extends AbstractController
      * @Route("/api/recipes",name="recipes.add",methods={"POST"})
      * @IsGranted("ROLE_USER")
      */
-    public function add(ObjectManager $manager, Request $request, Security $security) : Response
+    public function add(ObjectManager $manager, Request $request, Security $security, CategoryRepository $categoryRepository) : Response
     {
         $recipe = new Recipe();
-        $category = new Category();
+        $category = $this->getDoctrine()->getRepository(Category::class);
         $response = new Response();
 
         $currentUser = $security->getUser();
@@ -117,11 +116,13 @@ class RecipesController extends AbstractController
             $errors[]  = "Price cannot be empty.";
         }
 
+
         if(!$errors)
         {
 
             $recipe->setDateCreated($dateCreated);
-            $recipe->setCategory($category->setName($categoryName));
+            //TODO: Correct this issue
+            $recipe->setCategory($this->getDoctrine()->getRepository(Category::class)->findOneBy(['name' => $categoryName]));
             $recipe->setColor($color);
             $recipe->setCookingTime($cookingTime);
             $recipe->setTitle($title);
@@ -131,8 +132,6 @@ class RecipesController extends AbstractController
             $recipe->setPreparationTime($preparationTime);
             $recipe->setDifficulty($difficulty);
             $recipe->setIntro($intro);
-            //TODO: correct this
-            //dd($this->createJSON($user));
             $recipe->setUser($user);
             $recipe->setPrice($price);
 
@@ -183,10 +182,72 @@ class RecipesController extends AbstractController
             return $this->json([
                 'message' => 'Recipe Deleted'
             ]);
-            
+
         } else {
             return $this->json([
                 'error' => 'Access Denied'
+            ]);
+        }
+    }
+
+    /**
+     * @Route("/api/recipes/{id}/update",name="recipes.update",methods={"PUT"})
+     * @IsGranted("ROLE_USER")
+     */
+    public function update(Request $request, int $id, Security $security, ObjectManager $manager) : Response
+    {
+        $recipe = $this->getDoctrine()->getRepository(Recipe::class)->find($id);
+        $userId = $security->getUser()->getId();
+        $dateCreated = \DateTime::createFromFormat('Y-m-d',date("y-m-d"));
+
+        $category = $this->getDoctrine()->getRepository(Category::class)->find($recipe->getId());
+
+        $user = $manager->find(User::class,$userId);
+
+        if (is_null($recipe)) {
+            return $this->json([
+                'error' => 'Product Not Found.'
+            ]);
+        }
+        if ($recipe->getUser() === $security->getUser()) {
+
+            $entityManager = $this->getDoctrine()->getManager();
+
+            if (!$recipe) {
+                return $this->json([
+                    'error' => 'Product Not Found.'
+                ],400);
+            }
+
+            //$recipe->setName('New product name!');
+            $recipe->setTitle($request->get('title'));
+            $recipe->setIntro($request->get('intro'));
+            $recipe->setUser($user);
+            $recipe->setCategory($category->setName($request->get('categoryName')));
+            $recipe->setImage($request->get('image'));
+            $recipe->setPreparation($request->get('preparation'));
+            $recipe->setIngredient($request->get('ingredient'));
+            $recipe->setColor($request->get('color'));
+            $recipe->setDateCreated($dateCreated);
+            $recipe->setCookingTime($request->get('cookingTime'));
+            $recipe->setPreparationTime($request->get('preparationTime'));
+            $recipe->setDifficulty($request->get('difficulty'));
+            $recipe->setPrice($request->get('price'));
+
+            //dd($recipe);
+
+            $entityManager->flush();
+
+            return $this->redirectToRoute('recipes.detail', [
+                'id' => $recipe->getId()
+            ]);
+
+            /*return $this->json([
+                'route' => 'update'
+            ]);*/
+        } else {
+            return $this->json([
+                'error' => 'Access Denied.'
             ]);
         }
     }
