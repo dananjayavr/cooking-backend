@@ -6,9 +6,11 @@ namespace App\Controller;
 
 use App\Repository\CategoryRepository;
 use App\Repository\UserRepository;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
@@ -66,6 +68,31 @@ class UsersController extends AbstractController
             'user' => $userRepository->find($id)
         ],200,[],[
             'groups' => ['api']
+        ]);
+    }
+
+    /**
+     * @Route("/api/users/{id}/delete",name="users.detail",methods={"DELETE"})
+     */
+    public function delete(int $id, Request $request, Security $security, UserRepository $userRepository) : Response
+    {
+        $currentUser = $security->getUser();
+        $userTobeDeleted = $userRepository->find($id);
+        $entityManger = $this->getDoctrine()->getManager();
+
+        if($currentUser === $userTobeDeleted)
+        {
+            $entityManger->remove($userTobeDeleted);
+
+            $entityManger->flush();
+
+            return $this->json([
+                'message' => 'User Deleted.'
+            ]);
+        }
+
+        return $this->json([
+            'error' => 'Access Denied'
         ]);
     }
 

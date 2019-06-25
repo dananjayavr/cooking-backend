@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="990d6440-c652-4e40-83c9-6c422445dc3a" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/RecipesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/RecipesController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/UsersController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/UsersController.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,70 +21,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Controller/RecipesController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="196">
-              <caret line="122" column="50" selection-start-line="122" selection-start-column="50" selection-end-line="122" selection-end-column="50" />
-              <folding>
-                <element signature="e#37#61#0#PHP" expanded="true" />
-                <element signature="e#8067#8083#0#PHP" expanded="true" />
-              </folding>
+            <state relative-caret-position="1751">
+              <caret line="245" column="45" selection-start-line="245" selection-start-column="45" selection-end-line="245" selection-end-column="45" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Entity/Category.php">
+        <entry file="file://$PROJECT_DIR$/src/Controller/UsersController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="231">
-              <caret line="11" column="14" selection-start-line="11" selection-start-column="14" selection-end-line="11" selection-end-column="14" />
-              <folding>
-                <element signature="e#30#78#0#PHP" expanded="true" />
-              </folding>
+            <state relative-caret-position="499">
+              <caret line="90" column="15" selection-start-line="90" selection-start-column="15" selection-end-line="90" selection-end-column="15" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Repository/RecipeRepository.php">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="84">
-              <caret line="4" column="4" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
-              <folding>
-                <element signature="e#34#56#0#PHP" expanded="true" />
-              </folding>
+            <state relative-caret-position="189">
+              <caret line="9" column="8" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
             </state>
           </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Repository/CategoryRepository.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="84">
-              <caret line="4" column="4" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
-              <folding>
-                <element signature="e#34#58#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Entity/Recipe.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="231">
-              <caret line="11" column="1" selection-start-line="11" selection-start-column="1" selection-end-line="11" selection-end-column="1" />
-              <folding>
-                <element signature="e#30#78#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config/packages/doctrine.yaml">
-          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
@@ -96,7 +60,6 @@
         <option value="$PROJECT_DIR$/src/Utils/helpers.php" />
         <option value="$PROJECT_DIR$/src/Controller/MembersController.php" />
         <option value="$PROJECT_DIR$/src/Entity/Member.php" />
-        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/src/Controller/HomepageController.php" />
         <option value="$PROJECT_DIR$/.env.dev" />
         <option value="$PROJECT_DIR$/src/Controller/CategoriesController.php" />
@@ -105,12 +68,13 @@
         <option value="$PROJECT_DIR$/src/Controller/SecurityController.php" />
         <option value="$PROJECT_DIR$/config/packages/security.yaml" />
         <option value="$PROJECT_DIR$/config/routes.yaml" />
-        <option value="$PROJECT_DIR$/src/Controller/UsersController.php" />
         <option value="$PROJECT_DIR$/src/Entity/Recipe.php" />
         <option value="$PROJECT_DIR$/src/Entity/User.php" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/Entity/Category.php" />
         <option value="$PROJECT_DIR$/src/Controller/RecipesController.php" />
+        <option value="$PROJECT_DIR$/src/Controller/UsersController.php" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -217,7 +181,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -275,6 +238,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -322,12 +286,14 @@
       <workItem from="1561206355762" duration="25000" />
       <workItem from="1561216386205" duration="359000" />
       <workItem from="1561326142394" duration="1028000" />
-      <workItem from="1561359897211" duration="17264000" />
+      <workItem from="1561359897211" duration="17375000" />
+      <workItem from="1561401080964" duration="11000" />
+      <workItem from="1561446318671" duration="1982000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="45027000" />
+    <option name="totallyTimeSpent" value="47131000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -342,7 +308,7 @@
     <frame x="8" y="38" width="1894" height="961" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2688985" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.27429804" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -373,29 +339,12 @@
     <entry file="file://$PROJECT_DIR$/src/Entity/.gitignore">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="441">
-          <caret line="21" column="4" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Controller/HomepageController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="441">
           <caret line="21" column="45" selection-start-line="21" selection-start-column="45" selection-end-line="21" selection-end-column="45" />
           <folding>
             <element signature="e#36#101#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controller/CategoriesController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="483">
-          <caret line="53" column="5" selection-start-line="53" selection-start-column="5" selection-end-line="53" selection-end-column="5" />
-          <folding>
-            <element signature="e#36#74#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -461,13 +410,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Controller/UsersController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="384">
-          <caret line="57" column="41" selection-start-line="57" selection-start-column="41" selection-end-line="57" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/config/services.yaml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -513,7 +455,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Repository/CategoryRepository.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
+        <state relative-caret-position="74">
           <caret line="4" column="4" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
           <folding>
             <element signature="e#34#58#0#PHP" expanded="true" />
@@ -521,14 +463,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller/CategoriesController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="754">
+          <caret line="53" column="5" selection-start-line="53" selection-start-column="5" selection-end-line="53" selection-end-column="5" />
+          <folding>
+            <element signature="e#36#74#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Controller/RecipesController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="122" column="50" selection-start-line="122" selection-start-column="50" selection-end-line="122" selection-end-column="50" />
-          <folding>
-            <element signature="e#37#61#0#PHP" expanded="true" />
-            <element signature="e#8067#8083#0#PHP" expanded="true" />
-          </folding>
+        <state relative-caret-position="1751">
+          <caret line="245" column="45" selection-start-line="245" selection-start-column="45" selection-end-line="245" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller/UsersController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="499">
+          <caret line="90" column="15" selection-start-line="90" selection-start-column="15" selection-end-line="90" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="9" column="8" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
         </state>
       </provider>
     </entry>

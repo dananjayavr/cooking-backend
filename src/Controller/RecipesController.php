@@ -47,16 +47,16 @@ class RecipesController extends AbstractController
 
         $recipes = $recipeRepository->findAll();
 
-        /*$response->setContent($this->createJSON($categories));
-        $response->headers->set('Content-Type','application/json');*/
+        $response->setContent($this->createJSON($recipes));
+        $response->headers->set('Content-Type','application/json');
 
-        //return $response;
+        return $response;
 
-        return $this->json([
-            'user' => $recipes
+        /*return $this->json([
+            'recipes' => $recipes
         ],200,[],[
             'groups' => ['api']
-        ]);
+        ]);*/
     }
 
     /**
@@ -238,8 +238,12 @@ class RecipesController extends AbstractController
 
             $entityManager->flush();
 
-            return $this->redirectToRoute('recipes.detail', [
+            /*return $this->redirectToRoute('recipes.detail', [
                 'id' => $recipe->getId()
+            ]);*/
+
+            return $this->json([
+               'message' => 'Recipe Updated.'
             ]);
 
             /*return $this->json([
