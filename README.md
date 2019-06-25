@@ -33,7 +33,7 @@ User
 
 GET : /api/users - récupérer l'ensemble des utilisateurs
 
-POST : /api/users- création/ajout d'un utilisateur
+POST : /api/register - création/ajout d'un utilisateur
 
 GET : /api/users/{id} - récupérer les informations d'un utilisateur
 

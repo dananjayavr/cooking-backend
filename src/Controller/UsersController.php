@@ -3,13 +3,16 @@
 
 namespace App\Controller;
 
-
-use App\Repository\CategoryRepository;
+use App\Entity\User;
 use App\Repository\UserRepository;
-use Symfony\Component\Config\Definition\Exception\Exception;
+use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
+use Doctrine\ORM\EntityManager;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -73,6 +76,7 @@ class UsersController extends AbstractController
 
     /**
      * @Route("/api/users/{id}/delete",name="users.detail",methods={"DELETE"})
+     * @\Sensio\Bundle\FrameworkExtraBundle\Configuration\Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_USER')")
      */
     public function delete(int $id, Request $request, Security $security, UserRepository $userRepository) : Response
     {
@@ -88,6 +92,74 @@ class UsersController extends AbstractController
 
             return $this->json([
                 'message' => 'User Deleted.'
+            ]);
+        }
+
+        return $this->json([
+            'error' => 'Access Denied'
+        ]);
+    }
+
+    /**
+     * @Route("/api/users/{id}/update",name="users.update",methods={"PUT"})
+     * @\Sensio\Bundle\FrameworkExtraBundle\Configuration\Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_USER')")
+     */
+    public function update(int $id, Request $request, Security $security, ObjectManager $objectManager, UserPasswordEncoderInterface $passwordEncoder) : Response
+    {
+        $user = $objectManager->getRepository(User::class)->find($id);
+
+        if(is_null($user)) {
+            return $this->json([
+                'error' => 'User Not Found.'
+            ]);
+        }
+
+        if ($security->getUser() === $user) {
+            $entityManager = $this->getDoctrine()->getManager();
+
+            $firstname = $request->get('firstname');
+            $lastname = $request->get('lastname');
+            $password = $request->get('password');
+            $passwordConfirmation = $request->get('password_confirmation');
+            $gravatar = $request->get('gravatar');
+
+            $errors = [];
+            if($password != $passwordConfirmation) {
+                $errors[] = "Passwords does not match.";
+            } elseif (strlen($password) < 6) {
+                $errors[]  = "Password should be at least 6 characters.";
+            }
+
+            if(!$errors)
+            {
+                $encodedPassword = $passwordEncoder->encodePassword($user,$password);
+                $user->setPassword($encodedPassword);
+                $user->setFirstname($firstname);
+                $user->setLastname($lastname);
+                $user->setGravatar($gravatar);
+
+                try
+                {
+                    $entityManager->persist($user);
+                    $entityManager->flush();
+
+                    return $this->json([
+                        'user' => $user
+                    ]);
+
+                } catch (UniqueConstraintViolationException $exception)
+                {
+                    $errors[] = "The email provided already has an account.";
+                }
+                catch (\Exception $exception)
+                {
+                    $errors[] = "Unable to save new user at this time.";
+                }
+
+            }
+
+            return $this->json([
+               'errors' => $errors
             ]);
         }
 
