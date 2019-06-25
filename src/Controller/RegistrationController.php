@@ -26,6 +26,8 @@ class RegistrationController extends AbstractController
         $passwordConfirmation = $request->request->get("password_confirmation");
         $gravatar = 'default.png';
         $roles = ["ROLE_USER"];
+        #$roles = ["ROLE_ADMIN","ROLE_USER"];
+        #$roles = ["ROLE_ADMIN"];
         $firstname = $request->request->get('firstname');
         $lastname = $request->request->get('lastname');
         $dateCreated = \DateTime::createFromFormat('Y-m-d',date("y-m-d"));

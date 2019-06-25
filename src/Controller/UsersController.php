@@ -7,8 +7,6 @@ use App\Entity\User;
 use App\Repository\UserRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
-use Doctrine\ORM\EntityManager;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -34,7 +32,7 @@ class UsersController extends AbstractController
             'circular_reference_handler' => function($obj) {
                 return $obj->getId();
             },
-            'ignored_attributes' => ['recipes','password','roles','isBlocked']
+            'ignored_attributes' => ['password','roles','isBlocked']
         ]);
     }
 
@@ -54,28 +52,28 @@ class UsersController extends AbstractController
     }
 
     /**
-     * @Route("/api/users/{id}",name="users.detail")
+     * @Route("/api/users/{id}",name="users.detail",methods={"GET"})
      */
-    public function detail(Request $request, UserRepository $userRepository, int $id) : Response
+    public function detail(UserRepository $userRepository, int $id) : Response
     {
-        /*$response = new Response();
+        $response = new Response();
 
         $category = $userRepository->find($id);
 
         $response->setContent($this->createJSON($category));
         $response->headers->set('Content-Type','application/json');
 
-        return $response;*/
+        return $response;
 
-        return $this->json([
+        /*return $this->json([
             'user' => $userRepository->find($id)
         ],200,[],[
             'groups' => ['api']
-        ]);
+        ]);*/
     }
 
     /**
-     * @Route("/api/users/{id}/delete",name="users.detail",methods={"DELETE"})
+     * @Route("/api/users/{id}/delete",name="users.delete",methods={"DELETE"})
      * @\Sensio\Bundle\FrameworkExtraBundle\Configuration\Security("is_granted('ROLE_ADMIN') or is_granted('ROLE_USER')")
      */
     public function delete(int $id, Request $request, Security $security, UserRepository $userRepository) : Response

@@ -6,6 +6,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "ext-json": "^1.5",
+        "easycorp/easyadmin-bundle": "^2.2",
         "nelmio/cors-bundle": "^1.5",
         "sensio/framework-extra-bundle": "^5.3",
         "symfony/asset": "4.3.*",
