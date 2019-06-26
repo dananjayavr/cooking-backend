@@ -21,6 +21,7 @@ class HomepageController extends AbstractController
         // le tableau ['data' => 123] est juste un test
         $response->setContent(json_encode(['data' => 123]));
         $response->headers->set('Content-Type','application/json');
+        $response->headers->set('Access-Control-Allow-Origin','*');
         return $response;
     }
 }
