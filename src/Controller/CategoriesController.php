@@ -83,7 +83,6 @@ class CategoriesController extends AbstractController
             $errors[] = "name cannot be empty.";
         }
 
-
         if (!$errors) {
 
             $category->setName($categoryName);
