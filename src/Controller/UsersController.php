@@ -32,7 +32,7 @@ class UsersController extends AbstractController
             'circular_reference_handler' => function($obj) {
                 return $obj->getId();
             },
-            'ignored_attributes' => ['password','roles','isBlocked']
+            'ignored_attributes' => ['password','roles','isBlocked','recipes']
         ]);
     }
 
